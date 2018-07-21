@@ -1,10 +1,12 @@
 require('dotenv').config()
 const express = require('express');
+const bodyParser = require('body-parser');
 const faker = require('faker');
 const mysql = require('mysql');
 const app = express();
 
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}));
 //creates a connection to the mySQL database
 let connection = mysql.createConnection(
 {
@@ -26,6 +28,18 @@ app.get('/', (req, res) =>
 		// Respond with total
 		res.render('home', { numUsers });
 	})
+})
+
+app.post('/register', (req, res) => 
+{
+	// creates a new person with the provided email
+	let person = {email: req.body.email};
+	// inserts the person into the users setting values to be matching
+	connection.query('INSERT INTO users SET ?', person, (err, result) => 
+	{
+		if(err) throw err;
+		res.redirect('/');
+	});
 })
 
 
