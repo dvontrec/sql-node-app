@@ -4,6 +4,7 @@ const faker = require('faker');
 const mysql = require('mysql');
 const app = express();
 
+app.set('view engine', 'ejs');
 //creates a connection to the mySQL database
 let connection = mysql.createConnection(
 {
