@@ -24,7 +24,7 @@ app.get('/', (req, res) =>
 		if(error) throw error;
 		const numUsers = results[0].count;
 		// Respond with total
-		res.send(`we have ${numUsers} users`);
+		res.render('home', { numUsers });
 	})
 })
 
